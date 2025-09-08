@@ -17,11 +17,13 @@ Un cliente Registrato può in più fare ordini e prenotare tavoli. La pagina del
 ## Installazione
 
 1. Clonare il repository da GitHub:
-    git clone 
+    git clone https://github.com/elegibellini/Progetto-Tecnologie-Web-2025.git
     cd osteria
 
 2. Installare le dipendenze:
     pip3 install -r requirements.txt
+    oppure 
+    pipenv install
 
 3. Applicare le migrazioni:
     python3 manage.py migrate
