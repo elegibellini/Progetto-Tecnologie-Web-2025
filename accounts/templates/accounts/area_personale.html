@@ -1,0 +1,44 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5 p-4 rounded" style="background-color: #f8f5f0;">
+    <h2 class="text-center mb-4" style="color: #5a2a3e;">Area Personale</h2>
+
+    <p><strong>Ciao, {{ username }}</strong></p>
+    <p>Email: {{ email }}</p>
+    <p><strong>I miei punti:</strong> {{ punti }}</p>
+    <hr>
+
+    {% if prenotazioni_attive %}
+        <h4>Prenotazioni attive</h4>
+        <ul class="list-group mb-4">
+        {% for pren in prenotazioni_attive_mod %}
+            {% with p=pren.obj %}
+            <li class="list-group-item">
+                {{ p.data|date:"d/m/Y" }} alle {{ p.ora|time:"H:i" }} – {{ p.numero_persone }} persone
+                {% if pren.modificabile %}
+                    <a href="{% url 'modifica_prenotazione' p.id %}" class="btn btn-sm btn-outline-primary ml-2">Modifica</a>
+                    <form method="post" action="{% url 'elimina_prenotazione' p.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-outline-danger ml-1">Elimina</button>
+                    </form>
+                {% else %}
+                    <span class="badge badge-secondary ml-2">Non modificabile</span>
+                {% endif %}
+            </li>
+            {% endwith %}
+        {% endfor %}
+          
+              
+        </ul>
+    {% endif %}
+
+
+    <div class="text-center mt-4">
+        <a href="{% url 'storico_ordini' %}" class="btn btn-outline-dark">
+            📜 Vedi storico ordini & prenotazioni
+        </a>
+    </div>
+</div>
+{% endblock %}

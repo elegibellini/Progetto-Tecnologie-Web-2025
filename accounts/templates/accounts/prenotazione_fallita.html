@@ -1,0 +1,14 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5 text-center">
+    <h2 class="text-danger">⚠️ Prenotazione non riuscita</h2>
+    <p class="mt-4">Purtroppo non ci sono tavoli disponibili per il numero di persone richiesto in questa data.</p>
+    <p>Ti invitiamo a provare in un'altra data o a contattarci per maggiori informazioni.</p>
+    
+    <a href="{% url 'prenota_tavolo' %}" class="btn btn-secondary mt-4">Torna alla pagina di prenotazione</a>
+    <br><br>
+    <a href="/" class="btn btn-outline-dark">Torna alla homepage</a>
+</div>
+{% endblock %}

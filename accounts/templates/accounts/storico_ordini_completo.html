@@ -1,0 +1,32 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Storico Completo Ordini & Prenotazioni</h2>
+    <hr>
+
+    <h4>Ordini take-away completati (tutti gli utenti)</h4>
+    <ul class="list-group mb-4">
+        {% for o in ordinazioni %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ o.piatto.nome }} × {{ o.quantita }} – <strong>{{ o.utente.username }}</strong>
+                <span>{{ o.piatto.prezzo|floatformat:0 }} €</span>
+            </li>
+        {% empty %}
+            <li class="list-group-item">Nessun ordine take-away registrato.</li>
+        {% endfor %}
+    </ul>
+
+    <h4>Prenotazioni passate (tutti gli utenti)</h4>
+    <ul class="list-group">
+        {% for p in prenotazioni %}
+            <li class="list-group-item">
+                {{ p.data|date:"d/m/Y" }} alle {{ p.ora|time:"H:i" }} – {{ p.numero_persone }} persone – <strong>{{ p.utente.username }}</strong>
+            </li>
+        {% empty %}
+            <li class="list-group-item">Nessuna prenotazione trovata.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

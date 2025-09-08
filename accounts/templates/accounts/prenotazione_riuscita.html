@@ -1,0 +1,13 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5 text-center">
+    <h2 class="text-success">✅ Prenotazione confermata!</h2>
+    <p class="mt-4">
+        Ti aspettiamo il <strong>{{ data|date:"d/m/Y" }}</strong> alle <strong>{{ ora|time:"H:i" }}</strong>.<br>
+        Grazie per aver scelto l’Osteria di Citerna!
+    </p>
+    <a href="{% url 'home' %}" class="btn btn-outline-dark mt-4">Torna alla homepage</a>
+</div>
+{% endblock %}

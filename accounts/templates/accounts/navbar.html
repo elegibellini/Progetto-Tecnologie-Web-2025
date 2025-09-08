@@ -1,0 +1,48 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:#5a2a3e;">
+  <a class="navbar-brand" href="{% url 'home' %}">
+    <img id="logo" src="{% static 'images/logo.jpg' %}" alt="Logo Osteria" style="height: 60px;">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse"
+          data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+          aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      {% if request.user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'area_personale' %}">Area Personale</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'visualizza_ordinazione' %}">Carrello</a>
+        </li>
+      {% endif %}
+      <li class="nav-item">
+        <a class="nav-link" href="mailto:osteriadiciterna@gmail.com">Contattaci</a>
+      </li>
+      {% if request.user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'amministrazione' %}">Amministrazione</a>
+        </li>
+      
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'logout' %}"><strong>LOGOUT</strong></a>
+        </li>
+      {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'registrati' %}">REGISTRATI</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">LOGIN</a>
+        </li>
+      {% endif %}
+    </ul>
+
+    <form class="form-inline my-2 my-lg-0" method="get" action="{% url 'cerca_piatto' %}">
+      <input class="form-control mr-sm-2" type="search" placeholder="Cerca..." name="q">
+      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">🔍</button>
+    </form>
+  </div>
+</nav>

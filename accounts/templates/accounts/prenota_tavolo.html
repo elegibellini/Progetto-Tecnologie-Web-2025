@@ -1,0 +1,32 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+
+    {% if modifica %}
+        <h2>Modifica la tua prenotazione</h2>
+        <p>Modifica i dati della tua prenotazione già confermata.</p>
+    {% else %}
+        <h2>Prenota un tavolo</h2>
+        <p>Compila i dati per prenotare un tavolo presso l’Osteria di Citerna.</p>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="btn btn-success">Vai al riepilogo</button>
+    </form>
+
+    <hr>
+    <h5 class="mt-4">Giorni non prenotabili:</h5>
+    <ul>
+        {% for giorno in giorni_bloccati %}
+            <li>{{ giorno|date:"d/m/Y" }}</li>
+        {% empty %}
+            <li>Al momento non ci sono giorni bloccati.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

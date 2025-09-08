@@ -1,0 +1,52 @@
+{% extends 'accounts/main.html' %}
+{% block content %}
+
+
+<div class="container">
+    <div style="padding: 20px; ">
+        <div>
+            <h2>Ecco cosa stai cercando: "{{ query }}"</h2>
+            <h4> Non hai trovato quello che cercavi? <a href="{% url 'home' %}" style="color: #5a2a3e; font-weight: bold;"> nella nostra homepage</a>.</h4>
+        </div>
+    </div>
+    <div class="row">
+        {% for piatto in piatti %}
+            <div class="col-md-4">
+                <div class="card rounded" style="margin: 10px; padding: 10px;">
+                    <img src="{{ piatto.immagine.url }}" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ piatto.nome }} <b style="color: #5a2a3e;">{{ piatto.prezzo|floatformat:2}} €</b> </h5>
+                        <p class="card-text">
+                            {% if piatto.ingredienti %}
+                                <p>{{piatto.ingrediente}}</p>
+                            {% endif %}
+                        </p>
+                        <p class="card-text">
+                            Portate:
+                            <b>
+                                {% for portata in piatto.portata.all %}
+                                    {{ portata.nome }}
+                                    {% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </b>
+                        </p>
+                        {% if user.is_authenticated %}
+                        <p style="text-align: center">
+                            <form method="post" action="{% url 'aggiungi_al_carrello' piatto.id %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="piatto_id" value="{{ piatto.id }}">
+                                <button type="submit" class="orderpiattobutton">Aggiungi all'ordinazione</button>
+                            </form>
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+<div style="position: relative;">
+    {% endblock %}
+</div>

@@ -1,0 +1,25 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Riepilogo della tua prenotazione</h2>
+    <hr>
+    <ul class="list-group">
+        <li class="list-group-item"><strong>Data:</strong> {{ prenotazione.data }}</li>
+        <li class="list-group-item"><strong>Ora:</strong> {{ prenotazione.ora }}</li>
+        <li class="list-group-item"><strong>Numero di persone:</strong> {{ prenotazione.numero_persone }}</li>
+        <li class="list-group-item"><strong>Nome prenotazione:</strong> {{ prenotazione.nome_utente }}</li>
+    </ul>
+
+    <form method="post" class="mt-4">
+        {% csrf_token %}
+        <!-- Questi campi servono per confermare i dati -->
+        <input type="hidden" name="data" value="{{ prenotazione.data }}">
+        <input type="hidden" name="ora" value="{{ prenotazione.ora }}">
+        <input type="hidden" name="numero_persone" value="{{ prenotazione.numero_persone }}">
+        <button type="submit" class="btn btn-success">Conferma prenotazione</button>
+        <a href="{% url 'prenota_tavolo' %}" class="btn btn-secondary">Modifica</a>
+    </form>
+</div>
+{% endblock %}

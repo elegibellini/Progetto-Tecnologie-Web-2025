@@ -1,0 +1,51 @@
+{% extends 'accounts/main.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Carrello</h2>
+
+    {% if ordinazioni %}
+        <ul class="list-group mb-3">
+            {% for o in ordinazioni %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div class="d-flex flex-column">
+                        <strong>{{ o.piatto.nome }}</strong>
+                        <small>{{ o.quantita }} × {{ o.piatto.prezzo|floatformat:0 }} €</small>
+                        <div class="btn-group btn-group-sm mt-2" role="group">
+                            <form method="post" action="{% url 'rimuovi_piatto' o.id %}" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-secondary">−</button>
+                            </form>
+                            <span class="mx-2">{{ o.quantita }}</span>
+                            <form method="post" action="{% url 'aggiungi_quantita' o.id %}" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-secondary">+</button>
+                            </form>
+
+                        </div>
+                    </div>
+                
+                    <form method="post" action="{% url 'rimuovi_piatto' o.id %}" class="d-inline ml-2">
+                        {% csrf_token %}
+                        <button class="btn btn-sm btn-danger">Rimuovi</button>
+                    </form>
+                </li>
+                
+            {% endfor %}
+        </ul>
+
+        <p><strong>Totale:</strong> {{ totale_ordine|floatformat:0 }} €</p>
+        <p><strong>Punti guadagnati:</strong> {{ punti }}</p>
+
+        <div class="d-flex">
+            <a href="{% url 'menu' %}" class="btn btn-outline-dark">Torna al menu</a>
+            <form method="post" action="{% url 'invia_ordinazione' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn" style="background-color: #5a2a3e; color: #f8f5f0;">Conferma Ordine</button>
+            </form>
+        </div>
+    {% else %}
+        <p>Il tuo carrello è vuoto.</p>
+        <a href="{% url 'menu' %}" class="btn btn-outline-primary">Torna al menu</a>
+    {% endif %}
+</div>
+{% endblock %}
