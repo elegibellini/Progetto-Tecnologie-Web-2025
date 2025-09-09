@@ -18,6 +18,7 @@ urlpatterns = [
     path('invia_ordinazione/', views.invia_ordinazione,name='invia_ordinazione'),
     path('rimuovi_piatto/<int:ordinazione_id>/', views.rimuovi_piatto, name='rimuovi_piatto'),
     path('carrello/aggiungi/<int:ordinazione_id>/', views.aggiungi_quantita, name='aggiungi_quantita'),
+    path('diminuisci/<int:ordinazione_id>/', views.diminuisci_quantita, name='diminuisci_quantita'),
     path('area-lavoratori/', views.area_lavoratori, name='area_lavoratori'),
     path('gestione-prenotazioni/', views.gestione_prenotazioni, name='gestione_prenotazioni'),
     path('area_personale/', views.area_personale, name='area_personale'),

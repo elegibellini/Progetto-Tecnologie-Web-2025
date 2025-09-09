@@ -11,7 +11,7 @@
                         <strong>{{ o.piatto.nome }}</strong>
                         <small>{{ o.quantita }} × {{ o.piatto.prezzo|floatformat:0 }} €</small>
                         <div class="btn-group btn-group-sm mt-2" role="group">
-                            <form method="post" action="{% url 'rimuovi_piatto' o.id %}" class="d-inline">
+                            <form method="post" action="{% url 'diminuisci_quantita' o.id %}" class="d-inline">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-outline-secondary">−</button>
                             </form>

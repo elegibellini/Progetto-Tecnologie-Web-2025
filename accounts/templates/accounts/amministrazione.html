@@ -29,7 +29,7 @@
 
     <ul>
         {% for g in giorni_bloccati %}
-            <li>{{ g.data|date:"d/m/Y" }}</li>
+            <li>{{ g|date:"d/m/Y" }}</li>
         {% empty %}
             <li>Nessun giorno bloccato.</li>
         {% endfor %}

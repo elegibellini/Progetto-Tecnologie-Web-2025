@@ -175,7 +175,7 @@ def amministrazione(request):
     ).order_by('data', 'ora')
     
     giorni_bloccati = GiornoNonPrenotabile.objects.filter(data__gte=oggi).values_list('data', flat=True)
-    giorni_bloccati_js = json.dumps([g.data.strftime('%Y-%m-%d') for g in giorni_bloccati])
+    giorni_bloccati_js = json.dumps([g.strftime('%Y-%m-%d') for g in giorni_bloccati])
 
     return render(request, 'accounts/amministrazione.html', {
         'prenotazioni_future': prenotazioni_future,
@@ -378,16 +378,24 @@ def aggiungi_quantita(request, ordinazione_id):
     ordinazione.save()
     return redirect('visualizza_ordinazione')
 
+@login_required
+def diminuisci_quantita(request, ordinazione_id):
+    ordinazione = get_object_or_404(
+        Ordinazione, id=ordinazione_id, utente=request.user, completato=False
+    )
+    if ordinazione.quantita > 1:
+        ordinazione.quantita -= 1
+        ordinazione.save()
+    else:
+        ordinazione.delete()
+    return redirect('visualizza_ordinazione')
+
+@login_required
 def rimuovi_piatto(request, ordinazione_id):
-    if request.user.is_authenticated:
-        ordinazione = get_object_or_404(Ordinazione, id=ordinazione_id, utente=request.user, completato=False)
-
-        if ordinazione.quantita > 1:
-            ordinazione.quantita -= 1
-            ordinazione.save()
-        else:
-            ordinazione.delete()
-
+    ordinazione = get_object_or_404(
+        Ordinazione, id=ordinazione_id, utente=request.user, completato=False
+    )
+    ordinazione.delete()  #elimina sempre il piatto
     return redirect('visualizza_ordinazione')
 
 @login_required

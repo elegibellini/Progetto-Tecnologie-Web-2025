@@ -31,3 +31,12 @@ Un cliente Registrato può in più fare ordini e prenotare tavoli. La pagina del
 4. Avvviare il server:
     python3 manage.py runserver (8008)
     Il sito disponibile su http://127.0.0.1:8008
+
+
+utente registrato giuli@gmail.com
+password tecweb25
+
+utente lavoratore luca@osteria.com
+password tecweb25
+
+utente admin elenagibellini@osteria.com tecweb25

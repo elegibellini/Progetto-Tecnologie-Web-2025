@@ -45,7 +45,7 @@
         <ul class="list-group">
             {% for p in prenotazioni_passate %}
                 <li class="list-group-item">
-                    {{ p.data|date:"d/m/Y" }} alle {{ p.ora|time:"H:i" }} – {{ p.numero_persone }} persone – {{ p.utente.username }}
+                    {{ p|date:"d/m/Y" }} alle {{ p.ora|time:"H:i" }} – {{ p.numero_persone }} persone – {{ p.utente.username }}
                 </li>
             {% empty %}
                 <li class="list-group-item">Nessuna prenotazione passata trovata.</li>

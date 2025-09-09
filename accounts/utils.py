@@ -4,8 +4,7 @@ from django.db.models import Q
 def trova_tavoli_per_prenotazione(data, ora, numero_persone):
     
     tavoli_occupati = Prenotazione.objects.filter(
-        data=data,
-        ora=ora
+        data=data
     ).values_list('tavoli_assegnati__id', flat=True)
 
     
