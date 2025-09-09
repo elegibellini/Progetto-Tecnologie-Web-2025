@@ -39,4 +39,5 @@ password tecweb25
 utente lavoratore luca@osteria.com
 password tecweb25
 
-utente admin elenagibellini@osteria.com tecweb25
+utente admin elenagibellini@osteria.com 
+password tecweb25
